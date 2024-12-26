@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Yeison</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            height: 100vh; /* Altura total de la pantalla */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Evitar scroll */
+
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            text-align: center;
+        }
+        img {
+            border-radius: 10px;
+            max-width: 100%;
+            margin: 20px 0;
+        }
+        .imagen-centrada {
+            width: 400px; 
+            height: 250px; 
+            object-fit: cover; 
+            display: block; 
+            margin: 20px auto; 
+            border-radius: 10px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            width: 100%;
+            height: 100px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #FF00AA;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #e60091;
+        }
+        .heart-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); 
+        }
+        .heart {
+            width: 150px;
+            height: 150px;
+            background-color: #e60091;
+            position: relative;
+            transform: rotate(0deg);
+        }
+        .heart:before,
+        .heart:after {
+            content: "";
+            width: 150px;
+            height: 150px;
+            background-color: #e60091;
+            border-radius: 50%;
+            position: absolute;
+        }
+        .heart:before {
+            top: -75px;
+            left: 0;
+        }
+        .heart:after {
+            left: 75px;
+            top: 0;
+        }
+        .message {
+            position: absolute;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .heart.spin {
+            animation: spin 2s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">No sabes cuánto te amo</div>
+        <div class="subtitle">
+            Mi amor, Yeison:
+            Quiero que sepas cuánto lo siento te hice sentir que no creí en ti cuando más lo necesitabas. Tú eres lo más importante para mí.
+            <br><br>
+            Desde el fondo de mi corazón, quiero que sepas que siempre estaré contigo, tanto en los días llenos de luz como en los momentos más difíciles. En cada paso que des, en cada reto que enfrentes, estaré a tu lado para abrazarte, apoyarte y recordarte lo increíble que eres.
+            <br><br>
+            Gracias por ser tan especial y por enseñarme lo que realmente significa el amor. Prometo aprender de mis errores y demostrarte cada día cuánto te amo y valoro.
+        </div>
+        
+        <img src="{{ url_for('static', filename='image.png') }}" class="imagen-centrada">
+        <div class="button-container">
+            <button onclick="showHeart()">Sí</button>
+            <button onclick="moverBoton(this)">No</button>
+        </div>
+    </div>
+
+    <script>
+        function moverBoton(boton) {
+            const container = document.querySelector('.button-container');
+            const randomX = Math.floor(Math.random() * (container.clientWidth - boton.offsetWidth));
+            const randomY = Math.floor(Math.random() * (container.clientHeight - boton.offsetHeight));
+            boton.style.position = 'absolute';
+            boton.style.left = `${randomX}px`;
+            boton.style.top = `${randomY}px`;
+        }
+        function showHeart() {
+            const body = document.body;
+            body.innerHTML = '';
+            const heartContainer = document.createElement('div');
+            heartContainer.classList.add('heart-container');
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            const message = document.createElement('div');
+            message.classList.add('message');
+            message.textContent = 'Te adoro mi vida';
+            heartContainer.appendChild(heart);
+            heartContainer.appendChild(message);
+            body.appendChild(heartContainer);
+            setTimeout(() => {
+                heart.classList.add('spin');
+            }, 500);
+        }
+    </script>
+</body>
+</html>
